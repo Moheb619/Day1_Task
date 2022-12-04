@@ -1,6 +1,4 @@
-��#� �D�a�y�1�_�T�a�s�k�
-�
-�
+#Day 1 Task
 
 
 #Page Link:
