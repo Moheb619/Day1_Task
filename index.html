@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Progress</title>
+  </head>
+  <body>
+    <div class="container rowDisplay">
+      <form action="" class="form">
+        <div class="colDisplay">
+          <label for="topic">Topic Name</label>
+          <input type="text" id="topicInput" />
+        </div>
+        <div class="colDisplay">
+          <label for="details">Topic Details</label>
+          <textarea name="" id="detailsInput" cols="30" rows="10"></textarea>
+        </div>
+        <button type="submit" id="formSubmitButton">Add</button>
+      </form>
+      <div class="tableDiv">
+        <table class="tableContainer">
+          <tr>
+            <th>Topic Name</th>
+            <th>Topic Details</th>
+            <th>Action</th>
+          </tr>
+          <tr>
+            <td>HTML</td>
+            <td>Hypertext Transfer Protocol</td>
+            <td><button id="deleteButton">Delete</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <script>
+            function addItems() {
+              const topic = document.getElementById("topicInput");
+              const details = document.getElementById("detailsInput");
+              const myObj = {
+                topic: topic,
+                details: details,
+              };
+              storeInLocalStorage(item, keyAndvalue) {
+            if (localStorage.getItem(item) == null) {
+             localStorage.setItem(item, JSON.stringify(keyAndvalue));
+             return;
+          }
+
+          var oldData = JSON.parse(localStorage.getItem(item)) || [];
+         oldData.push(keyAndvalue);
+         return;
+      }
+            }
+    </script>
+  </body>
+</html>
