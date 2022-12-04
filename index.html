@@ -8,8 +8,10 @@
     <title>Progress</title>
   </head>
   <body>
-    <div class="container rowDisplay">
-      <form action="" class="form">
+    <div class="header">Learning Progres</div>
+    <hr />
+    <div class="container rowDisplay" id="containerDiv">
+      <form class="form">
         <div class="colDisplay">
           <label for="topic">Topic Name</label>
           <input type="text" id="topicInput" />
@@ -18,42 +20,59 @@
           <label for="details">Topic Details</label>
           <textarea name="" id="detailsInput" cols="30" rows="10"></textarea>
         </div>
-        <button type="submit" id="formSubmitButton">Add</button>
+        <button onclick="addItems()" id="formSubmitButton">Add</button>
       </form>
       <div class="tableDiv">
-        <table class="tableContainer">
+        <table class="tableContainer" id="tableId">
           <tr>
             <th>Topic Name</th>
             <th>Topic Details</th>
             <th>Action</th>
           </tr>
-          <tr>
-            <td>HTML</td>
-            <td>Hypertext Transfer Protocol</td>
-            <td><button id="deleteButton">Delete</button></td>
-          </tr>
         </table>
       </div>
     </div>
     <script>
-            function addItems() {
-              const topic = document.getElementById("topicInput");
-              const details = document.getElementById("detailsInput");
-              const myObj = {
-                topic: topic,
-                details: details,
-              };
-              storeInLocalStorage(item, keyAndvalue) {
-            if (localStorage.getItem(item) == null) {
-             localStorage.setItem(item, JSON.stringify(keyAndvalue));
-             return;
-          }
+      var array = JSON.parse(localStorage.getItem("data"));
+      var table = document.getElementById("tableId");
+      for (let i = 0; i < array.length; i++) {
+        let tr = document.createElement("tr");
+        let tdTopic = document.createElement("td");
+        tdTopic.innerText = array[i].topic;
+        let tdDetails = document.createElement("td");
+        tdDetails.innerText = array[i].details;
+        let tdButton = document.createElement("td");
+        let deleteButton = document.createElement("button");
+        deleteButton.setAttribute("onclick", `deleteItem(${i});`);
+        deleteButton.innerText = "Delete";
+        tdButton.append(deleteButton);
 
-          var oldData = JSON.parse(localStorage.getItem(item)) || [];
-         oldData.push(keyAndvalue);
-         return;
+        tr.append(tdTopic);
+        tr.append(tdDetails);
+        tr.append(tdButton);
+        table.append(tr);
       }
-            }
+      function storeInLocalStorage(data, entry) {
+        var existingEntries = JSON.parse(localStorage.getItem(data));
+        if (existingEntries == null) existingEntries = [];
+        existingEntries.push(entry);
+        localStorage.setItem(data, JSON.stringify(existingEntries));
+      }
+      function addItems() {
+        const topic = document.getElementById("topicInput").value;
+        const details = document.getElementById("detailsInput").value;
+        const myObj = {
+          topic: topic,
+          details: details,
+        };
+        storeInLocalStorage("data", myObj);
+      }
+      function deleteItem(id) {
+        var existingEntries = JSON.parse(localStorage.getItem("data"));
+        existingEntries.splice(id, 1);
+        localStorage.setItem("data", JSON.stringify(existingEntries));
+        location.reload();
+      }
     </script>
   </body>
 </html>
